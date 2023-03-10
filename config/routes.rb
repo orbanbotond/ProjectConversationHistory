@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  resources :projects do
-    resources :comments, only: [:create, :new]
-    member do
-      get 'history'
-    end
-  end
+  # resources :projects do
+  #   resources :comments, only: [:create, :new]
+  #   member do
+  #     get 'history'
+  #   end
+  # end
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  root "projects#index"
+  # # Defines the root path route ("/")
+  # root "projects#index"
 end
