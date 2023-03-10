@@ -10,6 +10,7 @@ div
         td= @project.id
         td= @project.title
         td= @project.state
+  = link_to "Change State", new_state_change_project_path(@project.id)
 
   p History:
   table class="table table-sm table-striped table-hover" size="sm"
@@ -23,5 +24,8 @@ div
           td= history_element[:timestamp]
           td= history_element[:action]
 
-= turbo_frame_tag 'new_comment' do
-  = link_to "Comment", new_project_comment_path(@project.id)
+  div
+    = turbo_frame_tag 'new_comment' do
+      = link_to "Comment", new_project_comment_path(@project.id)
+  div
+    = link_to "Projects", projects_path

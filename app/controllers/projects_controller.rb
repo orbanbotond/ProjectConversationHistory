@@ -3,6 +3,21 @@ class ProjectsController < ApplicationController
     @project_form = ProjectForm.new
   end
 
+  def state_change
+    @project_state_form = ProjectStateForm.new project_state_params
+    if @project_state_form.valid?
+      command_bus.(Conversations::Commands::ChangeProjectState.new(id: params[:id],
+                                                          new_state: @project_state_form.state))
+      redirect_to project_path(params[:id])
+    else
+      render :new_state_change, status: :unprocessable_entity, content_type: "text/html"
+    end
+  end
+
+  def new_state_change
+    @project_state_form = ProjectStateForm.new
+  end
+
   def show
     @project = nil
 
@@ -51,5 +66,9 @@ class ProjectsController < ApplicationController
 
   def project_params
     request.parameters[:project_form]
+  end
+
+  def project_state_params
+    request.parameters[:project_state_form]
   end
 end
