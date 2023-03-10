@@ -1,0 +1,16 @@
+= render @project
+
+table
+  thead
+    td Timestamp
+    td Change Type
+    td Change
+  tbody
+    - @history.each do |change|
+      tr
+        td
+          = timestamp_of_change change
+        td
+          = type_of_change change
+        td
+          = data_of_change change
