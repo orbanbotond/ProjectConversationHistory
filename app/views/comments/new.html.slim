@@ -1,0 +1,5 @@
+= turbo_frame_tag 'new_comment'
+  = simple_form_for @comment_form, url: project_comments_path(@comment_form.project_id) do |form|
+    = form.input :comment
+    = form.input :project_id, :as => :hidden
+    = form.button :submit,  'Comment'

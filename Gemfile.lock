@@ -68,6 +68,10 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    aggregate_root (2.9.1)
+      ruby_event_store (= 2.9.1)
+    arkency-command_bus (0.4.1)
+      concurrent-ruby
     autoprefixer-rails (10.4.13.0)
       execjs (~> 2)
     bindex (0.8.1)
@@ -93,6 +97,25 @@ GEM
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    dry-core (1.0.0)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-inflector (1.0.0)
+    dry-logic (1.5.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-struct (1.6.0)
+      dry-core (~> 1.0, < 2)
+      dry-types (>= 1.7, < 2)
+      ice_nine (~> 0.11)
+      zeitwerk (~> 2.6)
+    dry-types (1.7.1)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0)
+      dry-inflector (~> 1.0)
+      dry-logic (~> 1.4)
+      zeitwerk (~> 2.6)
     erubi (1.12.0)
     execjs (2.8.1)
     ffi (1.15.5)
@@ -100,6 +123,7 @@ GEM
       activesupport (>= 5.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    ice_nine (0.11.2)
     importmap-rails (1.1.5)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
@@ -138,6 +162,7 @@ GEM
     paper_trail (14.0.0)
       activerecord (>= 6.0)
       request_store (~> 1.4)
+    pg (1.4.5)
     popper_js (2.11.6)
     public_suffix (5.0.1)
     puma (5.6.5)
@@ -165,6 +190,17 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
+    rails_event_store (2.9.1)
+      activejob (>= 6.0)
+      activemodel (>= 6.0)
+      activesupport (>= 6.0)
+      aggregate_root (= 2.9.1)
+      arkency-command_bus (>= 0.4)
+      rails_event_store_active_record (= 2.9.1)
+      ruby_event_store (= 2.9.1)
+      ruby_event_store-browser (= 2.9.1)
+    rails_event_store_active_record (2.9.1)
+      ruby_event_store-active_record (= 2.9.1)
     railties (7.0.4.2)
       actionpack (= 7.0.4.2)
       activesupport (= 7.0.4.2)
@@ -179,6 +215,14 @@ GEM
     request_store (1.5.1)
       rack (>= 1.4)
     rexml (3.2.5)
+    ruby_event_store (2.9.1)
+      concurrent-ruby (~> 1.0, >= 1.1.6)
+    ruby_event_store-active_record (2.9.1)
+      activerecord (>= 6.0)
+      ruby_event_store (= 2.9.1)
+    ruby_event_store-browser (2.9.1)
+      rack
+      ruby_event_store (= 2.9.1)
     rubyzip (2.3.2)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -205,7 +249,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.6.1-arm64-darwin)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     temple (0.10.0)
@@ -239,20 +282,26 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
+  aggregate_root
+  arkency-command_bus
   bootsnap
   bootstrap (~> 5.2.0)
   capybara
   debug
+  dry-struct
+  dry-types
   importmap-rails
   jbuilder
   paper_trail
+  pg
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)
+  rails_event_store
+  ruby_event_store
   selenium-webdriver
   simple_form
   slim
   sprockets-rails
-  sqlite3 (~> 1.4)
   stimulus-rails
   turbo-rails
   tzinfo-data

@@ -1,0 +1,4 @@
+= turbo_frame_tag 'new_project' do
+  = simple_form_for @project_form, url: projects_path do |form|
+    = form.input :title
+    = form.button :submit,  'Create Project'

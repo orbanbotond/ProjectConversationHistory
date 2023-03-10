@@ -1,0 +1,27 @@
+div
+  table class="table table-sm table-striped table-hover" size="sm"
+    thead
+      tr
+        th Id
+        th Title
+        th State
+    tbody
+      tr
+        td= @project.id
+        td= @project.title
+        td= @project.state
+
+  p History:
+  table class="table table-sm table-striped table-hover" size="sm"
+    thead
+      tr
+        th Timestamp
+        th Action
+    tbody
+      - @history.each do |history_element|
+        tr
+          td= history_element[:timestamp]
+          td= history_element[:action]
+
+= turbo_frame_tag 'new_comment' do
+  = link_to "Comment", new_project_comment_path(@project.id)

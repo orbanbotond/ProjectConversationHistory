@@ -1,0 +1,15 @@
+div
+  p Projects
+  table class="table table-sm table-striped table-hover" size="sm"
+    thead
+      tr
+        th Id
+        th Title
+    tbody
+      - @projects.each do |project|
+      	tr
+      		td= project[:id]
+      		td=	link_to project[:title], project_path(project[:id])
+      			
+= turbo_frame_tag 'new_project' do
+  = link_to "Create New Project", new_project_path
