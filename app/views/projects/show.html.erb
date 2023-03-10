@@ -1,0 +1,8 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @project %>
+
+<div>
+  <%= link_to "Change State of this project", edit_project_path(@project) %> |
+  <%= link_to "List all projects", projects_path %>
+</div>
