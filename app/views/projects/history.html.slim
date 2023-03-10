@@ -1,10 +1,11 @@
 = render @project
 
-table
-  thead
-    td Timestamp
-    td Change Type
-    td Change
+table class="table-striped table table-hover"
+  thead class="thead-dark"
+    tr
+      td Timestamp
+      td Change Type
+      td Change
   tbody
     - @history.each do |change|
       tr

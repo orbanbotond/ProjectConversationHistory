@@ -2,12 +2,6 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action :set_project, only: %i[ new create ]
 
-  # GET /comments or /comments.json
-  def index
-    @comments = Comment.all
-  end
-
-
   # GET /comments/new
   def new
     @comment = Comment.new project_id: @project.id

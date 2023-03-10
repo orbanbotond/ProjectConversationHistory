@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :projects do
-    resources :comments, only: [:create, :new, :index]
+    resources :comments, only: [:create, :new]
     member do
       get 'history'
     end

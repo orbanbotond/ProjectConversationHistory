@@ -11,24 +11,7 @@ class ProjectsController < ApplicationController
   end
 
   def history
-    @history = @project.versions.map do |version|
-      {
-        created_at: version.created_at,
-        change: version.event,
-        old_state: version.reify.state
-      }
-    end
-
-    @project.comments.each {|comment| @history << comment }
-
-    @history.sort_by! do |element|
-      case element
-      when Hash
-        element[:created_at]
-      when Comment
-        element.created_at
-      end
-    end
+    @history = @project.history
   end
 
   # GET /projects/new
