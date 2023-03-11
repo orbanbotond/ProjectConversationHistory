@@ -8,7 +8,8 @@ class CommentsController < ApplicationController
     if @comment_form.valid?
       command_bus.(Conversations::Commands::CommentProject.new(id: @comment_form.project_id,
 			                                                         comment: @comment_form.comment))
-      redirect_to project_path(@comment_form.project_id)
+      @project = ProjectReadModel.find params[:project_id]
+      render partial: 'projects/new_project_comment_link'
     else
     	render :new
     end

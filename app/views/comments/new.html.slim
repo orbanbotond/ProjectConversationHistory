@@ -3,3 +3,5 @@
     = form.input :comment
     = form.input :project_id, :as => :hidden
     = form.button :submit,  'Comment'
+  = link_to "Never Mind", project_path(@comment_form.project_id)
+

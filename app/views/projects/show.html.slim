@@ -21,8 +21,7 @@ div
     tbody id="project_history_read_models"
       = render @history
 
-  div
-    = turbo_frame_tag 'new_comment' do
-      = link_to "Comment", new_project_comment_path(@project.id)
+  = render 'new_project_comment_link'
+
   div
     = link_to "Projects", projects_path
