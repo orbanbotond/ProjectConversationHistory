@@ -47,22 +47,17 @@ class ProjectsController < ApplicationController
     if @project_form.valid?
       command_bus.(Conversations::Commands::CreateProject.new(id: SecureRandom.uuid,
                                                           title: @project_form.title))
-      redirect_to projects_path
-    else
+      render partial: 'new_project_link'
+   else
       render :new, status: :unprocessable_entity, content_type: "text/html"
     end
   end
 
   def index
-    events = Rails.configuration.event_store.read.of_type("Conversations::Events::ProjectCreated")
-
-    @projects = events.map do |event|
-      {
-        id: event.data[:id],
-        title: event.data[:title]
-      }
-    end
+    @projects = ProjectReadModel.all
   end
+
+  private
 
   def project_params
     request.parameters[:project_form]
