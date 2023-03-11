@@ -1,3 +1,5 @@
+= turbo_stream_from 'project'
+
 div
   table class="table table-sm table-striped table-hover" size="sm"
     thead
@@ -5,12 +7,10 @@ div
         th Id
         th Title
         th State
-    tbody
-      tr
-        td= @project.id
-        td= @project.title
-        td= @project.state
-  = link_to "Change State", new_state_change_project_path(@project.id)
+    tbody id="project_read_model_#{@project.id}"
+      = render @project
+
+  = render 'new_project_state_link'
 
   p History:
   table class="table table-sm table-striped table-hover" size="sm"
@@ -18,11 +18,8 @@ div
       tr
         th Timestamp
         th Action
-    tbody
-      - @history.each do |history_element|
-        tr
-          td= history_element[:timestamp]
-          td= history_element[:action]
+    tbody id="project_history_read_models"
+      = render @history
 
   div
     = turbo_frame_tag 'new_comment' do

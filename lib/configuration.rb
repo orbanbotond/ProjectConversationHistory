@@ -15,5 +15,6 @@ class Configuration
 
   def enable_read_models(cqrs)
     ProjectReadModel::Configuration.new.call(cqrs)
+    ProjectHistoryReadModel::Configuration.new.call(cqrs)
   end
 end

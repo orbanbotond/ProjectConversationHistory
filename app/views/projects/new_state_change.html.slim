@@ -1,4 +1,6 @@
-= turbo_frame_tag 'project_state' do
+= turbo_frame_tag 'new_project_state' do
   = simple_form_for @project_state_form, url: state_change_project_path do |form|
-    = form.input :state
+    = form.input :state, label: 'New State'
     = form.button :submit,  'Change State'
+  = link_to "Never Mind", project_path(@project_state_form.id)
+

@@ -44,5 +44,6 @@ class ProjectReadModel < ActiveRecord::Base
     end
   end
 
-  after_create_commit -> { broadcast_append_to 'projects_list', partial: "project_read_models/project_read_model", locals: {project_read_model: self} }
+  after_create_commit -> { broadcast_append_to 'projects_list', partial: "project_read_models/project_read_model", locals: { project_read_model: self } }
+  after_update_commit -> { broadcast_replace_to 'project', partial: "project_read_models/project_read_model", locals: { project_read_model: self } }
 end

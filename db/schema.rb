@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_11_114145) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_11_155429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -36,6 +36,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_11_114145) do
     t.index ["created_at"], name: "index_event_store_events_in_streams_on_created_at"
     t.index ["stream", "event_id"], name: "index_event_store_events_in_streams_on_stream_and_event_id", unique: true
     t.index ["stream", "position"], name: "index_event_store_events_in_streams_on_stream_and_position", unique: true
+  end
+
+  create_table "project_histories", force: :cascade do |t|
+    t.string "project_id"
+    t.string "action"
+    t.datetime "created_at", null: false
   end
 
   create_table "project_read_models", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

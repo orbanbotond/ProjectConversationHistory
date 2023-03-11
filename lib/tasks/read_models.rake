@@ -14,4 +14,20 @@ namespace :read_models do
       end
     end
   end
+
+  task create_project_history: :environment do
+    events = Rails.configuration.event_store.read.of_type([Conversations::Events::ProjectStateChanged, Conversations::Events::ProjectCommented])
+
+    read_model_config = ProjectHistoryReadModel::Configuration.new
+
+    events.each do |event|
+      case event
+      when Conversations::Events::ProjectCommented
+        read_model_config.commented(event)        
+      when Conversations::Events::ProjectStateChanged
+        read_model_config.state_changed(event)        
+      end
+    end
+  end
+
 end

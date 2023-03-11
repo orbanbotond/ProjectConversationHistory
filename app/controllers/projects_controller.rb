@@ -8,38 +8,22 @@ class ProjectsController < ApplicationController
     if @project_state_form.valid?
       command_bus.(Conversations::Commands::ChangeProjectState.new(id: params[:id],
                                                           new_state: @project_state_form.state))
-      redirect_to project_path(params[:id])
+
+      @project = ProjectReadModel.find params[:id]
+      render partial: 'new_project_state_link'
     else
       render :new_state_change, status: :unprocessable_entity, content_type: "text/html"
     end
   end
 
   def new_state_change
-    @project_state_form = ProjectStateForm.new
+    @project_state_form = ProjectStateForm.new id: params[:id]
   end
 
   def show
-    @project = nil
+    @project = ProjectReadModel.find params[:id]
 
-    repository = Infra::AggregateRootRepository.new(Rails.configuration.event_store)
-    repository.with_aggregate(Conversations::Project, params[:id]) do |project|
-      @project = project
-    end  
-
-    stream_name = "#{Conversations::Project}$#{params[:id]}"
-    history_events = Rails.configuration.event_store.read.stream(stream_name).of_type([Conversations::Events::ProjectCommented, Conversations::Events::ProjectStateChanged])
-
-    converter = {
-      Conversations::Events::ProjectStateChanged => -> (event) { "State Changed To: #{event.data[:new_state]} From: #{event.data[:old_state]}" },
-      Conversations::Events::ProjectCommented => -> (event) { "Commented: #{event.data[:comment]}"}
-    }
-
-    @history = history_events.map { |event|
-      { 
-        timestamp: event.metadata[:timestamp],
-        action: converter[event.class].call(event)
-      }
-    }
+    @history = ProjectHistoryReadModel.where project_id: params[:id]
   end
 
   def create
